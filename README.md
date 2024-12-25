@@ -41,7 +41,7 @@ extract NOTAMs from the website and store parsed of them in the csv file
   **e.g : python shamsi_date.py ntp 3.5**
 
   
-### merge_notam_lists.py
+## merge_notam_lists.py
 - merges the two csv and append to notam_data.csv (if exists , if not creates it).
 - then removes the duplicates but keeps the one that its 'Farsi' column is not empty.
   
