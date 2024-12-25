@@ -33,9 +33,15 @@ extract NOTAMs from the website and store parsed of them in the csv file
 ## shamsi_date
 - returns the shamsi date + day and month text in farsi + GMT add to time
 - also extracts the time form ntp servers : 'pool.ntp.org'
-  
+
   **e.g : python shamsi_date.py <format/ntp> <date_string/GMT_difference> [GMT_difference]**
   
   **e.g : python shamsi_date.py "YYMMDDhhmmss" "241212123526" 3.5**
   
   **e.g : python shamsi_date.py ntp 3.5**
+
+  
+### merge_notam_lists.py
+- merges the two csv and append to notam_data.csv (if exists , if not creates it).
+- then removes the duplicates but keeps the one that its 'Farsi' column is not empty.
+  
