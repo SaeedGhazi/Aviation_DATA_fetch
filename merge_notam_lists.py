@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import logging
 
@@ -7,25 +8,37 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-def merge_and_remove_duplicates(file1, file2, output_file):
+def merge_and_remove_duplicates(new_data_files, output_file):
     try:
-        # Read the CSV files into DataFrames
-        logging.info(f"Reading {file1}...")
-        df1 = pd.read_csv(file1)
-        logging.info(f"Reading {file2}...")
-        df2 = pd.read_csv(file2)
+        # Read new data from the input files
+        data_frames = []
+        for new_file in new_data_files:
+            logging.info(f"Reading {new_file}...")
+            df = pd.read_csv(new_file)
+            data_frames.append(df)
+        
+        # Combine new data into one DataFrame
+        logging.info("Combining new data...")
+        new_data = pd.concat(data_frames, ignore_index=True)
 
-        # Concatenate the DataFrames
-        logging.info("Merging data...")
-        combined_df = pd.concat([df1, df2])
+        # Check if the output file exists
+        if os.path.exists(output_file):
+            logging.info(f"{output_file} exists. Reading existing data...")
+            existing_data = pd.read_csv(output_file)
+            combined_data = pd.concat([existing_data, new_data], ignore_index=True)
+        else:
+            logging.info(f"{output_file} does not exist. Creating it...")
+            combined_data = new_data
 
-        # Remove duplicates based on 'ICAO' and 'NOTAM No'
-        logging.info("Removing duplicate rows...")
-        deduplicated_df = combined_df.drop_duplicates(subset=['ICAO', 'NOTAM No'])
+        # Remove duplicates, keeping rows where 'Farsi' is not empty
+        logging.info("Removing duplicates...")
+        combined_data['Farsi'] = combined_data['Farsi'].fillna('')
+        combined_data.sort_values(by='Farsi', ascending=False, inplace=True)
+        deduplicated_data = combined_data.drop_duplicates(subset=['ICAO', 'NOTAM No'], keep='first')
 
-        # Save the merged and deduplicated DataFrame to a new CSV file
-        logging.info(f"Saving merged data to {output_file}...")
-        deduplicated_df.to_csv(output_file, index=False)
+        # Save the result back to the output file
+        logging.info(f"Saving deduplicated data to {output_file}...")
+        deduplicated_data.to_csv(output_file, index=False)
 
         logging.info("Merging and deduplication completed successfully!")
     except Exception as e:
@@ -33,11 +46,10 @@ def merge_and_remove_duplicates(file1, file2, output_file):
 
 if __name__ == "__main__":
     # Input CSV files
-    file1 = "notam_fetch_ourairports.csv"
-    file2 = "notam_fetch_faa.csv"
+    input_files = ["notam_fetch_ourairports.csv", "notam_fetch_faa.csv"]
 
     # Output CSV file
     output_file = "notam_data.csv"
 
     # Merge and remove duplicates
-    merge_and_remove_duplicates(file1, file2, output_file)
+    merge_and_remove_duplicates(input_files, output_file)
