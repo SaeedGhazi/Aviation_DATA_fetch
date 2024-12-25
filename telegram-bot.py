@@ -58,7 +58,7 @@ class BotRunner:
                         if row['ICAO'].strip().upper() == icao:
                             from_date = row.get('From', 'N/A')
                             to_date = row.get('To', 'N/A')
-                        
+                            
                             # Convert dates to Shamsi
                             try:
                                 shamsi_from = convert_to_shamsi(from_date, 3.5) if from_date != 'N/A' else 'N/A'
@@ -82,13 +82,13 @@ class BotRunner:
                                 f"**Lower Limit:** {row.get('Lower Limit', 'N/A')}\n"
                                 f"**Upper Limit:** {row.get('Upper Limit', 'N/A')}\n\n"
                                 f"**از :** ({shamsi_from})\n"
-                                f"**تا :** ({shamsi_to})\n"
+                                f"**تا :** ({shamsi_to})\n\n"
                             )
 
                             # Add Farsi translation if available
                             farsi_translation = row.get('Farsi', '').strip()
                             if farsi_translation:
-                                notam_entry += f"\n**Farsi:**\n{farsi_translation}\n"
+                                notam_entry += f"\n**شرح مختصر :**\n\n{farsi_translation}\n"
 
                             notam_entry += "---------------------------\n\n"
                             notams.append(notam_entry)
