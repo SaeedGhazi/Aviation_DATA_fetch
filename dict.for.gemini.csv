@@ -8,3 +8,28 @@ AVBL,در دسترس
 EMERG,اضطراری
 CLEARANCE DELIVERY,واحد صدور CLEARANCE
 OPR,عملیاتی
+AD, Aerodrome
+ADDN, Additional 
+INFO, Information 
+MET, Meteorology 
+SFC, Surface
+SID, Standard Instrument Departure
+STAR, Standard Arrival Route 
+ADC, Aerodrome Chart
+FAC, Facility 
+NAV, Navigation 
+LDG, Landing
+CTL, Control 
+IAC, Instrument Approach Chart
+FLT, Flight
+TEMPO, Temporarily 
+FM, From
+WI, Within
+GND, Ground 
+RPA, پهپاد
+MAG, Magnetic 
+MNM, Minimum
+NM, Nautical mile
+APCH, Approach 
+RWY, Runway
+LGT, Light/Lighting 
