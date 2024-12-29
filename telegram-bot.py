@@ -345,9 +345,9 @@ if __name__ == '__main__':
     # **Security Note:** 
     # Never hardcode your tokens in the source code. 
     # Use environment variables or a secure secrets manager instead.
-    TELEGRAM_TOKEN = '7574015468:AAG_Ll1dXDzUZ-x_imp-Db-UY9YCxL0Hc80' #os.getenv("TELEGRAM_TOKEN")
+    TELEGRAM_TOKEN = '' #os.getenv("TELEGRAM_TOKEN")
     
-    AVWX_TOKEN = 'SzrCqnb9UCoUXFi1wNE36ulZK2XcvMx1UdUh0kcMMrc' #os.getenv("AVWX_TOKEN") 
+    AVWX_TOKEN = '' #os.getenv("AVWX_TOKEN") 
 
     runner = BotRunner(TELEGRAM_TOKEN, AVWX_TOKEN)
     runner.run_with_proxy_option()
