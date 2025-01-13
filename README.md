@@ -88,11 +88,17 @@ Wants=tor.service
 [Service]
 Type=idle
 WorkingDirectory=/home/ssq/bot
-ExecStart=/bin/bash -c 'source /home/ssq/bot/bin/activate && python3 /home/ssq/bot/telegram-bot.INLINE.2.py'
+ExecStart=/bin/bash -c 'source /home/ssq/bot/bin/activate && cd /home/ssq/bot/Aviation_DATA_fetch-main/ && proxychains python3 telegram-bot.py'
 Restart=always
 User=ssq
-Environment="TELEGRAM_TOKEN="
-Environment="AVWX_TOKEN="
+Environment="TELEGRAM_TOKEN={}"
+Environment="AVWX_TOKEN={}"
+
+[Install]
+WantedBy=multi-user.target
+
+
+
 
 ## Wait for Tor to be ready
 ExecStartPre=/bin/bash -c 'until [ "$(systemctl is-active tor)" = "active" ]; do sleep 5; done'
